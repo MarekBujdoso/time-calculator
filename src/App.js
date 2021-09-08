@@ -19,12 +19,14 @@ function App() {
       timeArrays.map((item) => item[1]).reduce((acc, item) => acc + item, 0),
     ];
     if (resultArr[1] > 59) {
-      resultArr[0] += 1;
-      resultArr[1] = resultArr[1] - 60;
+      const hours = Math.floor(resultArr[1] / 60);
+      resultArr[0] += hours;
+      resultArr[1] = resultArr[1] - 60 * hours;
     }
     if (resultArr[0] > 23) {
-      console.log("more than day");
-      resultArr[0] = resultArr[0] - 24;
+      const days = Math.floor(resultArr[0] / 24);
+      console.log("more than day - ", days);
+      resultArr[0] = resultArr[0] - 24 * days;
     }
     return `${resultArr[0].toString().padStart(2, "0")}:${resultArr[1]
       .toString()
@@ -69,7 +71,7 @@ function App() {
             </TimeInput>
           );
         })}
-        <TimeInput value={addTime(times)} readOnly onChange={()=> {}}>
+        <TimeInput value={addTime(times)} readOnly onChange={() => {}}>
           <span>=</span>
         </TimeInput>
         <br />
